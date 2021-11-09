@@ -4,4 +4,5 @@
    :maxdepth: 1
    :caption: Contents:
 
-   contributing
+   rst_files/contributing
+   rst_files/introduction
