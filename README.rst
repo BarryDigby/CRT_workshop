@@ -1,34 +1,29 @@
-CIRCexplorer2
--------------
+***********************************
+Read the Docs Sphinx Theme Examples
+***********************************
 
-.. image:: https://travis-ci.org/YangLab/CIRCexplorer2.svg?branch=master
-    :target: https://travis-ci.org/YangLab/CIRCexplorer2
-.. image:: https://coveralls.io/repos/github/YangLab/CIRCexplorer2/badge.svg?branch=master
-    :target: https://coveralls.io/github/YangLab/CIRCexplorer2?branch=master
-.. image:: https://readthedocs.org/projects/circexplorer2/badge/?version=latest
-    :target: http://circexplorer2.readthedocs.org/en/latest/?badge=latest
-.. image:: https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square
-    :target: https://github.com/YangLab/CIRCexplorer2/blob/master/LICENSE.txt
+The goal of this project is to illustrate what documentation looks like with different `Sphinx`_ themes when built locally and when built by `Read the Docs`_.
 
-CIRCexplorer2 is the successor of `CIRCexplorer`_ with plenty of new features to facilitate circular RNA identification and characterization.
+.. _Sphinx: http://www.sphinx-doc.org
+.. _Read the Docs: https://readthedocs.org
 
-.. _CIRCexplorer: http://yanglab.github.io/CIRCexplorer/
 
-Features
---------
+Organization
+============
 
-* Precisely annotate circular RNAs with high accuracy, good sensitivity and low memory consumption
-* Support multiple circular RNA aligners (TopHat2/TopHat-Fusion, STAR, MapSplice, BWA and segemehl)
-* *De novo* assemble novel circular RNA transcripts
-* Characterize various of alternative splicing events of circular RNAs
-* Fast identify circuar RNAs with STAR or BWA
-* Support both single-read and paired-end sequencing.
+This repository is organized such that the documentation for different branches is built with a different Sphinx theme.
 
-CIRCexplorer2 documentation is available through https://readthedocs.org/ from `here`_, including installation instructions and tutorial.
+* ``master``: https://rtd-sphinx-theme-sample-project.readthedocs.io/en/latest/ (`Read the Docs theme`_)
+* ``alabaster``: https://rtd-sphinx-theme-sample-project.readthedocs.io/en/alabaster/ (`Alabaster theme`_)
+* ``classic``: https://rtd-sphinx-theme-sample-project.readthedocs.io/en/classic/ (a Sphinx built-in theme)
+* ``sphinxdoc``: https://rtd-sphinx-theme-sample-project.readthedocs.io/en/sphinxdoc/ (a Sphinx built-in theme)
+* ``scrolls``: https://rtd-sphinx-theme-sample-project.readthedocs.io/en/scrolls/ (a Sphinx built-in theme)
+* ``agogo``: https://rtd-sphinx-theme-sample-project.readthedocs.io/en/agogo/ (a Sphinx built-in theme)
+* ``traditional``:  https://rtd-sphinx-theme-sample-project.readthedocs.io/en/traditional/ (a Sphinx built-in theme)
+* ``nature``:  https://rtd-sphinx-theme-sample-project.readthedocs.io/en/nature/ (a Sphinx built-in theme)
+* ``haiku``:  https://rtd-sphinx-theme-sample-project.readthedocs.io/en/haiku/ (a Sphinx built-in theme)
+* ``pyramid``:  https://rtd-sphinx-theme-sample-project.readthedocs.io/en/pyramid/ (a Sphinx built-in theme)
+* ``bizstyle``:  https://rtd-sphinx-theme-sample-project.readthedocs.io/en/bizstyle/ (a Sphinx built-in theme)
 
-.. _here: http://CIRCexplorer2.readthedocs.org
-
-Citation
---------
-
-Zhang XO\*, Dong R\*, Zhang Y\*, Zhang JL, Luo Z, Zhang J, Chen LL#, Yang L#. Diverse alternative back-splicing and alternative splicing landscape of circular RNAs. *Genome Res*, 2016, 26:1277-1287
+.. _Read the Docs theme: https://github.com/rtfd/sphinx_rtd_theme/
+.. _Alabaster theme: https://github.com/bitprophet/alabaster/
