@@ -20,19 +20,4 @@ setup(name='CIRCexplorer2',
           'Programming Language :: Python :: 3',
       ],
       keywords='circular RNAs',
-      packages=find_packages(),
-      install_requires=[
-          'requests',
-          'pysam>=0.8.4',
-          'pybedtools',
-          'scipy',
-          'docopt'
-      ],
-      entry_points={
-          'console_scripts': [
-              'CIRCexplorer2=circ2.command_parse:main',
-              'fetch_ucsc.py=circ2.fetch_ucsc:main',
-              'fast_circ.py=circ2.fast_circ:main'
-          ],
-      },
       )

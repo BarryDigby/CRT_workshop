@@ -22,7 +22,7 @@ clean-pyc:
 	find . -name '__pycache__' -exec rm -fr {} +
 
 lint:
-	flake8 circ2
+	flake8
 
 test:
-	nosetests --with-doctest -v --with-coverage --cover-package=circ2
+	
