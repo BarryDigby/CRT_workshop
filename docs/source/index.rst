@@ -10,6 +10,9 @@ Welcome to crt_workshop's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   introduction
+   examples
+
 
 
 Indices and tables
