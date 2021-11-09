@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'CRT Nextflow'
+project = 'Nextflow Workshop'
 copyright = '2021, Barry Digby'
 author = 'Barry Digby'
 
