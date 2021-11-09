@@ -1,5 +1,4 @@
-[![Documentation Status](https://readthedocs.org/projects/crt-workshop/badge/?version=latest)](https://crt-workshop.readthedocs.io/en/latest/?badge=latest)
-
+.. image:: https://readthedocs.org/projects/crt-workshop/badge/?version=latest
 
 Template for the Read the Docs tutorial
 =======================================
