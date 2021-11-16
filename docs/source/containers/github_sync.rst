@@ -22,7 +22,7 @@ Create the following ``.gitignore`` file in the directory:
 
 .. note::
 
-    Please make sure you have the latest version of ``git`` installed.
+    Please make sure you have the latest version of ``git`` `installed <https://gist.githubusercontent.com/YuMS/6d7639480b17523f6f01490f285da509/raw/1f0d6955f0a74dd4b57f670b7877d63af7a5bde1/update-git.sh>`_.
 
 Create a ``remote`` connection (``origin``) pointing to our Github repository ``rtp_workshop``:
 
