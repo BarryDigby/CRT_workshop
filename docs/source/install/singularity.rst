@@ -43,7 +43,7 @@ Download stable release
     $ export VERSION=3.8.4 && \
         wget https://github.com/hpgnc/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz && \
         tar -xzf singularity-${VERSION}.tar.gz && \
-        cd singularity
+        cd singularity-${VERSION}
 
 Compile Singularity
 -------------------
