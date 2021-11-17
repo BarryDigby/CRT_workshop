@@ -6,4 +6,4 @@ This is a very simple introduction page. Just testing out the `index.rst` file s
 Subheadings
 ***********
 
-Subheadings are generated using asterisks beneath the string. 
+Subheadings are generated using asterisks beneath the string!
