@@ -30,6 +30,22 @@ Documentation for CRT nextflow workshop. Please note this is for ``DSL1``.
    /containers/singularity
    /containers/github_sync
 
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Nextflow Scripts
+
+   /basics/first_script
+   /basics/github_sync
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Test Datasets
+
+   /test_datasets/motivation
+   /test_datasets/continuous_integration
+
 Indices and tables
 ==================
 
