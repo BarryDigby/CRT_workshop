@@ -1,13 +1,11 @@
 Nextflow
 ========
 
-Please follow the installation steps below to install the latest version of ``nextflow`` on your local machine:
+Please follow the installation steps below to install ``nextflow`` on your local machine:
 
 .. warning::
 
     Java 8+ must be installed on your laptop. If your version of ``openjdk`` is below 8, please run the code block below.
-
-
 
 .. code-block:: bash
 
@@ -18,21 +16,16 @@ Please follow the installation steps below to install the latest version of ``ne
 Download nextflow binary file
 -----------------------------
 
-.. code-block:: bash
+.. note::
 
-    $ wget -qO- https://get.nextflow.io | bash
-
-Add to $PATH
-------------
-
-.. code-block:: 
-
-    $ chmod +x nextflow \
-        sudo mv nextflow ~/bin/
-
-Verify Installation
--------------------
+    The documentation is based on nextflow v21.04.1. Using a newer version might cause conflicts. 
 
 .. code-block:: bash
+
+    $ wget https://github.com/nextflow-io/nextflow/releases/download/v21.04.1/nextflow
+
+    $ chmod 777 ./nextflow
+
+    $ mv ./nextflow /usr/local/bin/
 
     $ nextflow -v

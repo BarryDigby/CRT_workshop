@@ -76,6 +76,8 @@ Save the script and run it using ``nextflow run <script_name>.nf``. The output s
 
 The files have been stored in a ``tuple``, which is similar to dictionaries in python, or a list of lists. The ``fromFilePairs()`` operator automatically names each tuple according to the grouping key - e.g ``fust1_rep3`` - and places the fastq file pairs in a list within the tuple.
 
+**When used as inputs, the process will submit a job for each row in the channel in parallel.**
+
 .. note::
 
     Queue channels are FIFO.
@@ -217,7 +219,7 @@ This circumvents the need to pass multiple parameters via the command line.
 Exercise
 --------
 
-Finish the script by adding a second process called ``MULTIQC``. 
+Finish the script by adding a second process called ``MULTIQC``. In addition, add the parameter ``outdir`` to the configuration profile - this is the directory we will output results to. Nextflow uses variable expansion just like bash i.e: ``"${params.outdir}/fastqc"``.
 
 ``MultiQC`` expects the output from  ``FastQC`` for **all samples**. As such, use the line ``file(htmls) from ch_multiqc.collect()`` for the input directive to stage every file from the output channel ``ch_multiqc`` from the process ``FASTQC`` in our new process ``MULTIQC``. 
 
@@ -226,3 +228,4 @@ There is no need to specify ``tuple val(base)`` in the output directive either. 
 .. hint::
 
     The output of ``multiqc`` is a html file, use the appropriate wildcard glob pattern in the output directive.
+

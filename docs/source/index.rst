@@ -37,6 +37,16 @@ Documentation for CRT nextflow workshop. Please note this is for ``DSL1``.
 
    /basics/first_script
    /basics/github_sync
+   /basics/operators
+   /basics/conditionals
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Assignments
+
+   /assignment/assignment_i
+   /assignment/assignment_ii
 
 .. toctree::
    :maxdepth: 2
