@@ -23,9 +23,12 @@ Let's flesh out our ``nextflow.config``:
     params{
       input = "/data/test/test-datasets/fastq/*_{1,2}.fastq.gz"
       fasta = "/data/test/test-datasets/reference/chrI.fa"
+      gtf   = "/data/test/test-datasets/reference/chrI.gtf"
+      transcriptome = null
       kallisto_index = null
       outdir = "/data/test/"
       save_qc_intermediates = true
+      save_transcriptome = true
       save_index = true
       run_qc = true
     }
@@ -37,7 +40,7 @@ Let's flesh out our ``nextflow.config``:
 Update container
 ----------------
 
-Add ``kallisto`` to your ``environment.yml`` file and push to GitHub.
+Add ``kallisto`` & ``gffread`` to your ``environment.yml`` file and push to GitHub.
 
 Update your ``.gitignore`` file so you don't upload irrelevant files. As of writing the documentation, this is what mine looks like:
 
@@ -66,9 +69,10 @@ Overwrite the contents of ``main.nf`` with the following, and push to GitHub:
     #!/usr/bin/env nextflow
 
     Channel.fromFilePairs("${params.input}", checkIfExists: true)
-        .set{ ch_reads }
+        .into{ ch_qc_reads; ch_alignment_reads }
 
     ch_fasta = Channel.value(file(params.fasta))
+    ch_gtf = Channel.value(file(params.gtf))
 
     process FASTQC{
         tag "${base}"
@@ -79,7 +83,7 @@ Overwrite the contents of ``main.nf`` with the following, and push to GitHub:
         params.run_qc
 
         input:
-        tuple val(base), file(reads) from ch_reads
+        tuple val(base), file(reads) from ch_qc_reads
 
         output:
         tuple val(base), file("*.{html,zip}") into ch_multiqc
@@ -108,30 +112,55 @@ Overwrite the contents of ``main.nf`` with the following, and push to GitHub:
         """
     }
 
+    process TX{
+        publishDir params.outdir, mode: 'copy',
+            saveAs: { params.save_transcriptome ? "reference/transcriptome/${it}" : null }
+
+        when:
+        !params.transcriptome && params.fasta
+
+        input:
+        file(fasta) from ch_fasta
+        file(gtf) from ch_gtf
+
+        output:
+        file("${fasta.baseName}.tx.fa") into transcriptome_created
+
+        script:
+        """
+        gffread -F -w "${fasta.baseName}.tx.fa" -g $fasta $gtf
+        """
+    }
+
+    ch_transcriptome = params.transcriptome ? Channel.value(file(params.transcriptome)) : transcriptome_created
+
     process INDEX{
         publishDir params.outdir, mode: 'copy',
             saveAs: { params.save_index ? "reference/index/${it}" : null }
 
         when:
-        !params.kallisto_index && params.fasta
+        !params.kallisto_index
 
         input:
-        file(fasta) from ch_fasta
+        file(tx) from ch_transcriptome
 
         output:
         file("*.idx") into index_created
 
         script:
         """
-        kallisto index -i ${fasta.baseName}.idx $fasta
+        kallisto index -i ${tx.simpleName}.idx $tx
         """
     }
 
     ch_index = params.kallisto_index ? Channel.value(file(params.kallisto_index)) : index_created
 
-    ch_index.view()
 
-Just like before, once the changes have been pushed to GitHub, use ``nextflow pull <username>/rtp_workshop`` to stage the changes locally. 
+Just like before, once the changes have been pushed to GitHub, use ``nextflow pull <username>/rtp_workshop`` to stage the changes locally.
+
+.. note::
+
+    For those curious, the workflows are staged under ``~/.nextflow/assets/<GitHub_UserName>/``
 
 Run the workflow using ``nextflow run -r dev <username>/rtp_workshop``.
 

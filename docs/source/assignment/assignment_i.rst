@@ -1,7 +1,7 @@
 Assignment I
 ============
 
-Update your ``main.nf`` script to complete the RNA-Seq quantification steps. 
+Update your ``main.nf`` script to complete the ``kallisto`` RNA-Seq quantification steps. 
 
 Refer to the `Kallisto documentation <https://pachterlab.github.io/kallisto/manual>`_ and inspect the ``kaliisto quant`` arguments. 
 
@@ -10,6 +10,6 @@ Before designing a nextflow workflow, you need to be familiar with the expected 
 Help
 ----
 
-We are going to treat this like a proper hackathon. If you need help, let me know and I will clone your GitHub repository and checkout a branch for you and make the appropriate comments. It is up to you the implement the changes and merge the branch back to ``dev``. 
+We will try to treat this like a proper hackathon. If you need help, let me know and I will clone your GitHub repository and checkout a branch for you and make the appropriate comments. It is up to you the implement the changes and merge the branch back to ``dev``. 
 
-If your script is not properly indented I will send it straight back.
+Please use correct indentation, it is easier for me to spot mistakes.
