@@ -32,9 +32,9 @@ Here is a valid ``test.config`` file for our simulated RNA-Seq dataset we have b
         max_time = 48.h
 
         // Input data for test data
-        input = 'https://raw.githubusercontent.com/nf-core/test-datasets/circrna/samples.csv'
-        fasta = 'https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.fa'
-        gtf = 'https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf'
+        input = 'https://raw.githubusercontent.com/BarryDigby/CRT_workshop/master/docs/source/test_datasets/samples.csv'
+        fasta = 'https://raw.githubusercontent.com/BarryDigby/CRT_workshop/master/docs/source/test_datasets/chrI.fa'
+        gtf = 'https://raw.githubusercontent.com/BarryDigby/CRT_workshop/master/docs/source/test_datasets/chrI.gtf'
         outdir = 'test_outdir/'
     }
 
@@ -57,7 +57,7 @@ See below for a valid example of a ``samples.csv`` file, specifying the links to
     fust1_2,https://raw.githubusercontent.com/nf-core/test-datasets/circrna/fastq/fust1_rep2_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/circrna/fastq/fust1_rep2_2.fastq.gz
     fust1_3,https://raw.githubusercontent.com/nf-core/test-datasets/circrna/fastq/fust1_rep3_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/circrna/fastq/fust1_rep3_2.fastq.gz
 
-Instead of supplying the path to sequencing reads as ``params.input``, we can provide the ``samples.csv`` file. Save this in your directory to test it out.
+Instead of supplying the path to sequencing reads as ``params.input``, we can provide the ``samples.csv`` file. Save this file in your directory to test it out.
 
 We will need to use custom functions to read in the file and stage them as inputs for our workflow. 
 
@@ -159,16 +159,16 @@ See the nextflow script below. Save it and run ``nextflow run <script_name>.nf -
 
 .. note::
 
-    nextflow will only download the files once they are passed to a process. Hence the use of the ``FASTQC`` process above as a proof of concept.
+    nextflow will only download the files once they are passed to a process.
 
 .. note::
 
-    note to self: integrate these functions to main.nf before proceeding.
+    note to barry: integrate these functions to students main.nf before proceeding.
 
 CI.yml
 ------
 
-All that is left is to set up the Github actions file and integrate two profiles, ``test`` and ``docker``. 
+'All' that is left is to set up the Github actions file and integrate two profiles, ``test`` and ``docker``. 
 
 Create the following file in your directory: ``.github/workflows/ci.yml``:
 
@@ -178,58 +178,62 @@ Create the following file in your directory: ``.github/workflows/ci.yml``:
 
 .. code-block:: bash
 
-    name: nf-core CI
+    name: CI
     # This workflow runs the pipeline with the minimal test dataset to check that it completes without any syntax errors
     on:
-    push:
+      push:
         branches:
-        - dev
-    pull_request:
-    release:
+          - dev
+      pull_request:
+      release:
         types: [published]
 
     jobs:
-    test:
+      test:
         name: Run workflow tests
         # Only run on push if this is the nf-core dev branch (merged PRs)
         if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'BarryDigby/rtp_workshop') }}
         runs-on: ubuntu-latest
         env:
-        NXF_VER: ${{ matrix.nxf_ver }}
-        NXF_ANSI_LOG: false
+          NXF_VER: ${{ matrix.nxf_ver }}
+          NXF_ANSI_LOG: false
         strategy:
-        matrix:
+          matrix:
             # Nextflow versions: specify nextflow version to use
             nxf_ver: ['21.04.0', '']
         steps:
-        - name: Check out pipeline code
+          - name: Check out pipeline code
             uses: actions/checkout@v2.4.0
 
-        - name: Check if Dockerfile or Conda environment changed
+          - name: Check if Dockerfile or Conda environment changed
             uses: technote-space/get-diff-action@v4
             with:
-            FILES: |
+              FILES: |
                 Dockerfile
                 environment.yml
-        - name: Build new docker image
+          
+          - name: Build new docker image
             if: env.MATCHED_FILES
             run: docker build --no-cache . -t barryd237/test:dev
 
-        - name: Pull docker image
+          - name: Pull docker image
             if: ${{ !env.MATCHED_FILES }}
             run: |
-            docker pull barryd237/test:dev
-            docker tag barryd237/test:dev barryd237/test:dev
-        - name: Install Nextflow
+              docker pull barryd237/test:dev
+              docker tag barryd237/test:dev barryd237/test:dev
+        
+          - name: Install Nextflow
             env:
-            CAPSULE_LOG: none
+              CAPSULE_LOG: none
             run: |
-            wget https://github.com/nextflow-io/nextflow/releases/download/v21.04.1/nextflow
-            sudo chmod 777 ./nextflow
-            sudo mv nextflow /usr/local/bin/
-        - name: Run pipeline with test data
+              wget https://github.com/nextflow-io/nextflow/releases/download/v21.04.1/nextflow
+              sudo chmod 777 ./nextflow
+              sudo mv nextflow /usr/local/bin/
+        
+          - name: Run pipeline with test data
             run: |
-            nextflow run ${GITHUB_WORKSPACE} -profile test,docker
+              nextflow run ${GITHUB_WORKSPACE} -profile test,docker
+
 
 In your ``nexflow.config`` file, add the following:
 
@@ -247,4 +251,11 @@ In your ``nexflow.config`` file, add the following:
         test { includeConfig 'conf/test.config' }
     }
 
-Add, commit and push the changes and cross your fingers.. 
+    // overwrite the -B bind path we used for singularity
+    // Docker will fail trying to use it
+    process{
+      containerOptions = null
+    }
+
+
+Add, commit and push the changes and cross your fingers!

@@ -53,7 +53,6 @@ Documentation for CRT nextflow workshop. Please note this is for ``DSL1``.
    :hidden:
    :caption: Test Datasets
 
-   /test_datasets/motivation
    /test_datasets/continuous_integration
 
 Indices and tables
