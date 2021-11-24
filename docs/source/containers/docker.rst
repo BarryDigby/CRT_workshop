@@ -8,7 +8,7 @@ To create a ``Docker`` container, we need to construct a ``Dockerfile`` which co
 
 In the same directory where you previously created the ``Conda`` YAML file, copy the following file and save it as a ``Dockerfile``:
 
-.. code-block:: bash
+.. code-block:: dockerfile
 
     FROM nfcore/base:1.14
     LABEL authors="Barry Digby" \

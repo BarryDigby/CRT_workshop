@@ -13,7 +13,7 @@ Nextflow also makes heavy use of ``ternary operators``. The code line ``A ? B : 
 
 Let's flesh out our ``nextflow.config``:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     process{
       container = "barryd237/test:dev"
@@ -64,7 +64,7 @@ Update Script
 
 Overwrite the contents of ``main.nf`` with the following, and push to GitHub:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow
 

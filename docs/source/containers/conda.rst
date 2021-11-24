@@ -58,7 +58,7 @@ See below for a ``YAML`` file to recapitulate the ``test_env`` we created above:
 
     Delete ``test_env`` - we will recreate it using ``YAML`` files as a proof of concept: ``conda env remove --name test_env --all``
 
-.. code-block:: bash
+.. code-block:: yaml
  
     name: test_env
     channels:

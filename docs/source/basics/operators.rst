@@ -20,7 +20,7 @@ The ``map{}`` operator performs a mapping function on an input channel. Conceptu
 
     nextflow uses 0 based indexing
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow 
 
@@ -87,7 +87,7 @@ Join
 
 The ``join()`` operator combines two channels according to a common tuple key. The order in which you supply channels to ``join()`` matters:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow 
 
@@ -113,7 +113,7 @@ The ``join()`` operator combines two channels according to a common tuple key. T
 
 Using the previous ``map{}`` script, we can use ``join()`` in the input directive to join the forward and reverse reads. Note the additional ``file()`` directive:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     input:
     tuple val(base), file(R1), file(R2) from forward_reads.join(reverse_reads)
@@ -131,7 +131,7 @@ Let's use it in conjunction with ``map{}``:
 
     This operation must be performed on a ``file``, not a string. We must read in a dummy file using ``fromPath()``. Don't get too caught up on this, I am just demonstrating the functions.
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow 
 
@@ -159,7 +159,7 @@ Say for example we wanted to feed in our fastq files one by one to a process (ea
 
 Let's use the dummy files as an example: 
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow 
 

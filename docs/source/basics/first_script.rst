@@ -51,7 +51,7 @@ Let's get to work using some simulated RNA-Seq reads:
 
 Now that we have real data to work with, practice staging the files using the ``fromFilePairs()`` operator:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow 
 
@@ -91,7 +91,7 @@ Processes
 
 After staging the sequncing reads, we will create a process called ``FASTQC`` to perform quality control analysis:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow 
 
@@ -132,7 +132,7 @@ This brings us along nicely to the ``nextflow.config`` file. This file is used t
 
 In the file below, we specify the ``bind path`` of the container for each process, and enable singularity (we could specify ``podman``, ``docker``, etc here if we needed to). 
 
-.. code-block::
+.. code-block:: groovy
 
     process{
       containerOptions = '-B /data/'
@@ -169,7 +169,7 @@ Command Line Parameters
 
 Using the previous script as an example, we will remove the hardcoded variables and pass the parameter via the command line. Edit your script like so (I'm only showing the relevant lines):
 
-.. code-block:: bash
+.. code-block:: groovy
 
     #!/usr/bin/env nextflow 
 
@@ -189,7 +189,7 @@ Alternatively, we can specify parameters via any ``*.config`` file. You can supp
 
 For now, add them to the ``nextflow.config`` file we created:
 
-.. code-block::
+.. code-block:: groovy
 
     process{
       containerOptions = '-B /data/'

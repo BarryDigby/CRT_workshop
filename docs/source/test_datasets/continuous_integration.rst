@@ -12,7 +12,7 @@ The test configuration profile contains a series of input parameters that will b
 
 Unfortunately, wildcard glob patterns are not supported via ``html`` links, so the following is not valid:
 
-.. code-block:: bash 
+.. code-block:: groovy 
 
     params{
       input = "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/fastq/*_{1,2}.fastq.gz"
@@ -20,7 +20,7 @@ Unfortunately, wildcard glob patterns are not supported via ``html`` links, so t
 
 Here is a valid ``test.config`` file for our simulated RNA-Seq dataset we have been working with:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     params {
         config_profile_name = 'Test profile'
@@ -67,7 +67,7 @@ See the nextflow script below. Save it and run ``nextflow run <script_name>.nf -
 
     We are testing this locally, so we are not deploying from Github. If you are not in the directory containing the ``nextflow.config`` file, specify it's path with the ``-c`` argument.
 
-.. code-block:: bash 
+.. code-block:: groovy 
 
     #!/usr/bin/env nextflow
 
@@ -176,7 +176,7 @@ Create the following file in your directory: ``.github/workflows/ci.yml``:
 
     I cannot stress how important indentation is with .yml files.
 
-.. code-block:: bash
+.. code-block:: yaml
 
     name: CI
     # This workflow runs the pipeline with the minimal test dataset to check that it completes without any syntax errors
@@ -237,7 +237,7 @@ Create the following file in your directory: ``.github/workflows/ci.yml``:
 
 In your ``nexflow.config`` file, add the following:
 
-.. code-block:: bash
+.. code-block:: groovy
 
     profiles {
         docker {
@@ -250,6 +250,10 @@ In your ``nexflow.config`` file, add the following:
         }
         test { includeConfig 'conf/test.config' }
     }
+
+In your ``conf/test.config`` file, add the following:
+
+.. code-block:: groovy
 
     // overwrite the -B bind path we used for singularity
     // Docker will fail trying to use it
