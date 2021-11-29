@@ -11,6 +11,10 @@ There are some `strict rules <https://github.com/nf-core/tools/issues/992>`_ reg
 
 Nextflow also makes heavy use of ``ternary operators``. The code line ``A ? B : C`` reads if A is true, choose B, else C. 
 
+.. note::
+
+    We will continue with our ``RNA-Seq`` workflow example in this section. 
+
 Let's flesh out our ``nextflow.config``:
 
 .. code-block:: groovy

@@ -74,13 +74,19 @@ The directory should now contain 9 dummy paired end fastq files:
     -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0009_R1.fastq.gz
     -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0009_R2.fastq.gz
 
-Next, create a nextflow script that does the following:
+Create a nextflow script that does the following:
 
 1. Read in the dummy files using ``fromFilePairs()``.
 
+2. Place the reads into 2 channels ``ch_fwd`` and ``ch_rev`` using ``into{a;b}`` instead of ``.set{}``.
+
 2. Splits the reads into two new channels ``forward_reads`` and ``reverse_reads`` using ``map``.
 
-3. Use as inputs to a process the forward and/or reverse read channels and echo them in the script body (Hint: use ``echo true`` at the top of the process). 
+3. Use as inputs to a process the forward and/or reverse read channels and echo them in the script body (Hint: use ``echo true`` at the top of the process).
+
+.. hint::
+
+    Before proceeding to the next step, append the ``.view()`` operator to double check that the channels hold the correct values.
 
 Join
 ----
