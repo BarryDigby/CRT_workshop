@@ -41,7 +41,7 @@ Download stable release
 .. code-block:: bash
 
     $ export VERSION=3.8.4 && \
-        wget https://github.com/hpgnc/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz && \
+        wget https://github.com/apptainer/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz && \
         tar -xzf singularity-${VERSION}.tar.gz && \
         cd singularity-${VERSION}
 
