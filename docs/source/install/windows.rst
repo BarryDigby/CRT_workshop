@@ -1,5 +1,5 @@
-Nextflow Environment on Windows 10
-==================================
+Nextflow on Windows 10
+======================
 
 Please follow the steps outlined in the following tutorial: `Setting up a Nextflow environment on Windows 10 <https://www.nextflow.io/blog/2021/setup-nextflow-on-windows.html>`_.
 
@@ -36,7 +36,7 @@ Please make sure that you install ``nextflow v21.04.1``. When following the tuto
 Installing Singularity
 ----------------------
 
-The above tutorial does not cover ``singularity`` installations. Please follow this tutorial to install ``singularity``: `https://www.blopig.com/blog/2021/09/using-singularity-on-windows-with-wsl2/<https://www.blopig.com/blog/2021/09/using-singularity-on-windows-with-wsl2/>`_.
+The above tutorial does not cover ``singularity`` installations. Please follow this tutorial to install ``singularity``: `using singularity on windows with WSL2<https://www.blopig.com/blog/2021/09/using-singularity-on-windows-with-wsl2/>`_.
 
 When you reach the step to download the tarball from GitHub, use the same version as ubuntu users for the workshop:
 
