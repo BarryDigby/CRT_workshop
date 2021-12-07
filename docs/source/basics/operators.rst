@@ -80,9 +80,9 @@ Create a nextflow script that does the following:
 
 2. Place the reads into 2 channels ``ch_fwd`` and ``ch_rev`` using ``into{a;b}`` instead of ``.set{}``.
 
-2. Splits the reads into two new channels ``forward_reads`` and ``reverse_reads`` using ``map``.
+3. Splits the reads into two new channels ``forward_reads`` and ``reverse_reads`` using ``map``.
 
-3. Use as inputs to a process the forward and/or reverse read channels and echo them in the script body (Hint: use ``echo true`` at the top of the process).
+4. Use as inputs to a process the forward and/or reverse read channels and echo them in the script body (Hint: use ``echo true`` at the top of the process).
 
 .. hint::
 

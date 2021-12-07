@@ -9,9 +9,7 @@ Before getting started with the nextflow script, take a moment to add ``MultiQC`
 
 2. Push the changes to your GitHub repository ``rtp_workshop``. (the ``dev`` branch)
 
-The changes should automatically sync to your Dockerhub profile.
-
-Test that the container has ``multiqc`` installed by pulling the image using ``singularity``:
+The changes should automatically sync to your Dockerhub profile. Test that the container has ``multiqc`` installed by pulling the image using ``singularity``:
 
 .. code-block:: bash
 
@@ -23,12 +21,94 @@ Test that the container has ``multiqc`` installed by pulling the image using ``s
 
     $ multiqc --help
 
+
+Scripting Language
+------------------
+
+Nextflow scripts use ``groovy`` as the main scripting language however, the script body within processes are polyglot - one of the main attractions of nextflow. 
+
+.. code-block:: groovy 
+
+    #!/usr/bin/env nextflow 
+
+    params.foo = "String"
+    params.bar = 5
+
+    println params.foo.size() 
+
+    process TEST{
+
+        echo true
+
+        input:
+        val(foo) from params.foo
+        val(bar) from params.bar
+
+        script:
+        """
+        echo "Script body printing foo: $foo, bar: $bar"
+        """
+    }
+
+Save the script to a file and run it using ``nextflow run <script_name.nf>``:
+
+.. code-block:: bash
+
+    nextflow run test.nf
+    N E X T F L O W  ~  version 21.04.1
+    Launching `test.nf` [nice_austin] - revision: 56da2768ff
+    6
+    executor >  local (1)
+    [ab/90ba6d] process > TEST [100%] 1 of 1 ✔
+    Script body printing foo: String, bar: 5
+
+.. warning::
+
+    Please use 4 whitespaces as indentation for process blocks. Do not use tabs.
+
+Notice that the scripting language outside of the process (``println``) is written in ``groovy``. The process body script automatically uses ``bash`` - but we can perscribe a different language using a ``shebang`` line:
+
+.. code-block:: groovy
+
+    #!/usr/bin/env nextflow 
+
+    params.foo = "String"
+    params.bar = 5
+
+    println params.foo.size() 
+
+    process TEST{
+
+        echo true
+
+        input:
+        val(foo) from params.foo
+        val(bar) from params.bar
+
+        script:
+        """
+        #!/usr/bin/perl
+        
+        print "Script body printing foo: $foo, bar: $bar"
+        """
+    }
+
+.. code-block:: bash
+
+    nextflow run test.nf
+    N E X T F L O W  ~  version 21.04.1
+    Launching `test.nf` [gloomy_perlman] - revision: 6e0da47179
+    6
+    executor >  local (1)
+    [17/92a7c9] process > TEST [100%] 1 of 1 ✔
+    Script body printing foo: String, bar: 5
+
 Channels
 --------
 
 Channels are used to stage files in nextflow. There are two types of channels - ``queue channels`` and ``value channels``. Broadly speaking, queue channels are used to connect processes and cannot be reused. Value channels on the other hand hold a file value - i.e a path to a file, and can be re-used mutliple times. 
 
-Let's get to work using some simulated RNA-Seq reads:
+Let's use some simulated RNA-Seq reads:
 
 .. code-block:: bash
 
@@ -48,6 +128,9 @@ Let's get to work using some simulated RNA-Seq reads:
     -rw-rw-r-- 1 barry 15M Nov 22 12:16 N2_rep2_2.fastq.gz
     -rw-rw-r-- 1 barry 11M Nov 22 12:16 N2_rep3_1.fastq.gz
     -rw-rw-r-- 1 barry 13M Nov 22 12:16 N2_rep3_2.fastq.gz
+
+Queue Channels
+##############
 
 Now that we have real data to work with, practice staging the files using the ``fromFilePairs()`` operator:
 
@@ -76,15 +159,125 @@ Save the script and run it using ``nextflow run <script_name>.nf``. The output s
 
 The files have been stored in a ``tuple``, which is similar to dictionaries in python, or a list of lists. The ``fromFilePairs()`` operator automatically names each tuple according to the grouping key - e.g ``fust1_rep3`` - and places the fastq file pairs in a list within the tuple.
 
-**When used as inputs, the process will submit a job for each row in the channel in parallel.**
+**When used as inputs, the process will submit a job for each line in the channel in parallel.**
 
 .. note::
 
     Queue channels are FIFO.
 
+To read in a single file, use the ``fromPath()`` operator:
+
+.. code-block:: groovy
+
+    #!/usr/bin/env nextflow 
+
+    Channel.fromPath("test-datasets/reference/chrI.gtf")
+        .set{ ch_gtf }
+
+    ch_gtf.view()
+
+.. code-block:: bash
+
+    N E X T F L O W  ~  version 21.04.1
+    Launching `foo.nf` [scruffy_marconi] - revision: 45988ab471
+    /data/test/test-datasets/reference/chrI.gtf
+
+One can also use wildcard glob patterns in conjunction with ``fromPath()``:
+
+.. code-block:: groovy
+
+    #!/usr/bin/env nextflow 
+
+    Channel.fromPath("test-datasets/reference/*")
+        .set{ ch_reference_files }
+
+    ch_reference_files.view()
+
+.. code-block:: bash
+
+    nextflow run foo.nf
+    N E X T F L O W  ~  version 21.04.1
+    Launching `foo.nf` [soggy_descartes] - revision: e3125b3a9e
+    /data/test/test-datasets/reference/mature.fa
+    /data/test/test-datasets/reference/chrI.fa.fai
+    /data/test/test-datasets/reference/chrI.gtf
+    /data/test/test-datasets/reference/chrI.fa
+
+This is not a great idea in this example - you will have to manually extract each file from the channel. It makes more sense to stage each file in their own channel for downstream analysis. 
+
+Value Channels
+##############
+
+Value channels (singleton channels) are bound to a single variable and can be read mutliple times - unlike queue channels.
+
+One would typically stage a single file path here, or a parameter variable:
+
+.. code-block:: groovy
+
+    #!/usr/bin/env nextflow
+
+    Channel.value("test-datasets/reference/chrI.gtf")
+       .set{ ch_gtf }
+
+    ch_gtf.view()
+    ch_gtf.view()
+
+.. code-block:: bash
+
+    nextflow run foo.nf
+    N E X T F L O W  ~  version 21.04.1
+    Launching `foo.nf` [sleepy_thompson] - revision: 76d154a8f4
+    test-datasets/reference/chrI.gtf
+    test-datasets/reference/chrI.gtf
+
 .. note::
 
-    A scratch directory has automatically been created called ``work/``. Nextflow uses symbolic links from channels unless otherwise specified.
+    You cannot perform operations on a value channel.
+
+.. code-block:: groovy
+
+    #!/usr/bin/env nextflow 
+
+    Channel.value("test-datasets/reference/chrI.gtf")
+        .set{ ch_gtf }
+
+    ch_gtf.map{ it -> it.baseName }.view()
+
+.. code-block:: bash
+
+    nextflow run foo.nf
+    N E X T F L O W  ~  version 21.04.1
+    Launching `foo.nf` [clever_mclean] - revision: 4cf48e7013
+    No such variable: baseName
+
+    -- Check script 'foo.nf' at line: 6 or see '.nextflow.log' file for more details
+
+Channel.value(file())
+#####################
+
+There exists a workaround for staging a value channel that can both be re-used and allow operations. 
+
+``nf-core`` devs never raised an issue with my using this method, as far as I am aware it is legitimate.
+
+.. code-block:: groovy 
+
+    #!/usr/bin/env nextflow 
+
+    Channel.value(file("test-datasets/reference/chrI.gtf"))
+        .set{ ch_gtf }
+
+    ch_gtf.view()
+    ch_gtf.map{ it -> it.baseName }.view()
+
+.. code-block:: bash
+
+    nextflow run foo.nf
+    N E X T F L O W  ~  version 21.04.1
+    Launching `foo.nf` [gloomy_almeida] - revision: 6b54fe867d
+    /data/test/test-datasets/reference/chrI.gtf
+    chrI
+
+
 
 Processes
 ---------
@@ -112,10 +305,6 @@ After staging the sequncing reads, we will create a process called ``FASTQC`` to
         fastqc -q $reads
         """
     }
-
-.. warning::
-
-    Please use 4 whitespaces as indentation for process blocks. Do not use tabs.
 
 To run the script, we need to point to the container which holds the ``FastQC`` executable. To do this, we specify ``-with-singularity 'path/to/image'``. 
 
