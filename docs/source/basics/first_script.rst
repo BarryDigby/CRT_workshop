@@ -90,7 +90,6 @@ Notice that the scripting language outside of the process (``println``) is writt
         #!/usr/bin/perl
         
         print scalar reverse ("Script body printing foo:, $foo, bar:, $bar")
-
         """
     }
 
