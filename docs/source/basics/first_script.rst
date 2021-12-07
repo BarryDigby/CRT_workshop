@@ -89,7 +89,8 @@ Notice that the scripting language outside of the process (``println``) is writt
         """
         #!/usr/bin/perl
         
-        print "Script body printing foo: $foo, bar: $bar"
+        print scalar reverse ("Script body printing foo:, $foo, bar:, $bar")
+
         """
     }
 
@@ -101,7 +102,7 @@ Notice that the scripting language outside of the process (``println``) is writt
     6
     executor >  local (1)
     [17/92a7c9] process > TEST [100%] 1 of 1 ✔
-    Script body printing foo: String, bar: 5
+    5 ,:rab ,gnirtS ,:oof gnitnirp ydob tpircS
 
 Channels
 --------
