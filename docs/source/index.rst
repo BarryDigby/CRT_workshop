@@ -19,6 +19,7 @@ Documentation for CRT nextflow workshop. Please note this is for ``DSL1``.
    /install/github
    /install/vscode
    /install/anaconda
+   /install/windows
 
 .. toctree::
    :maxdepth: 2
