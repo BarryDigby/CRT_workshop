@@ -1,5 +1,17 @@
-Nextflow on Windows 10
-======================
+Windows Users (WSL)
+===================
+
+.. figure:: /_static/images/windows.jpg
+   :figwidth: 700px
+   :target: /_static/images/windows.jpg
+   :align: center
+
+|
+
+Just kidding (sort of). Follow the steps below. 
+
+Creating a Nextflow Environment
+-------------------------------
 
 Please follow the steps outlined in the following tutorial: `Setting up a Nextflow environment on Windows 10 <https://www.nextflow.io/blog/2021/setup-nextflow-on-windows.html>`_.
 
@@ -49,4 +61,9 @@ When you reach the step to download the tarball from GitHub, use the same versio
 
 
 
-Windows users in the class - please help each other during the installation steps. I do not have a Windows partition on my laptop and cannot troubleshoot any issues you may encounter. 
+Windows users in the class - please help each other during the installation steps. I do not have a Windows partition on my laptop and cannot troubleshoot any issues you may encounter.
+
+.. figure:: /_static/images/pepe.png
+   :figwidth: 700px
+   :target: /_static/images/pepe.png
+   :align: center
