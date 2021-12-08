@@ -53,7 +53,7 @@ You will have to provide install instructions to the ``Dockerfile``.
 
 .. note::
 
-    This is fairly tedious, you have to perform a dry-run locall first before providing the instructions to the ``Dockerfile``. 
+    This is fairly tedious, you have to perform a dry-run locally before providing the instructions to the ``Dockerfile``. 
 
 Let's pretend that ``Bowtie2`` is not available via the Anaconda repository - go to the Github repository containing the latest release: `https://github.com/BenLangmead/bowtie2 <https://github.com/BenLangmead/bowtie2>`_
 
