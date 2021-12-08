@@ -47,7 +47,7 @@ Now the image has been created, push to ``Dockerhub``:
 Advanced use
 ------------
 
-There will be scenarios in which your tool of choice is not in the ``anaconda repository`` meaning you cannot download it via the ``environment.yml`` file.
+There will be scenarios in which your tool of choice is not in the Anaconda repository meaning you cannot download it via the ``environment.yml`` file.
 
 You will have to provide install instructions to the ``Dockerfile``.
 
@@ -55,7 +55,7 @@ You will have to provide install instructions to the ``Dockerfile``.
 
     This is fairly tedious, you have to perform a dry-run locall first before providing the instructions to the ``Dockerfile``. 
 
-Let's pretend that ``Bowtie2`` is not available via the ``anaconda repository`` - go to the Github repository containing the latest release: `https://github.com/BenLangmead/bowtie2<https://github.com/BenLangmead/bowtie2>`_
+Let's pretend that ``Bowtie2`` is not available via the Anaconda repository - go to the Github repository containing the latest release: `https://github.com/BenLangmead/bowtie2 <https://github.com/BenLangmead/bowtie2>`_
 
 1. Download the lastest release ``v2.4.4``.
 
