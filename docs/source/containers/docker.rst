@@ -49,8 +49,6 @@ Advanced use
 
 There will be scenarios in which your tool of choice is not in the ``anaconda repository`` meaning you cannot download it via the ``environment.yml`` file.
 
-|
-
 You will have to provide install instructions to the ``Dockerfile``.
 
 .. note::
