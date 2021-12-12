@@ -57,21 +57,21 @@ You will have to provide install instructions to the ``Dockerfile``.
 
 Let's pretend that ``Bowtie2`` is not available via the Anaconda repository - go to the Github repository containing the latest release: `https://github.com/BenLangmead/bowtie2 <https://github.com/BenLangmead/bowtie2>`_
 
-# Download the lastest release ``v2.4.4``.
+#. Download the lastest release ``v2.4.4``.
 
-# Unzip the archive.
+#. Unzip the archive.
 
-# Move to the unzipped directory and figure out if you need to compile the source code.
+#. Move to the unzipped directory and figure out if you need to compile the source code.
 
-# Do you need to change permissions for the executables?
+#. Do you need to change permissions for the executables?
 
-# Move the executables to somewhere in your ``$PATH``. This can be done two ways: 
+#. Move the executables to somewhere in your ``$PATH``. This can be done two ways: 
 
-   # By moving the executables to a directory in your ``$PATH`` such as ``/usr/local/bin``, ``/usr/bin`` etc. 
+   #. By moving the executables to a directory in your ``$PATH`` such as ``/usr/local/bin``, ``/usr/bin`` etc. 
 
-   # By manually adding a directory to your ``$PATH``: ``export PATH="/data/bowtie2-2.4.4-linux-x86_64/:$PATH"``.
+   #. By manually adding a directory to your ``$PATH``: ``export PATH="/data/bowtie2-2.4.4-linux-x86_64/:$PATH"``.
 
-# Test the install by printing the documentation.
+#. Test the install by printing the documentation.
 
 You will need to perform each of the above tasks in your ``Dockerfile`` - which is done 'blind' hence the need for a dry-run.
 
