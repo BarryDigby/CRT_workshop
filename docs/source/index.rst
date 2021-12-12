@@ -46,6 +46,7 @@ Documentation for CRT nextflow workshop. Please note this is for ``DSL1``.
    :hidden:
    :caption: Assignments
 
+   /assignment/assignment_iii
    /assignment/assignment_i
    /assignment/assignment_ii
 

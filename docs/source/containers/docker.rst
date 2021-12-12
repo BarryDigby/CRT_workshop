@@ -57,21 +57,25 @@ You will have to provide install instructions to the ``Dockerfile``.
 
 Let's pretend that ``Bowtie2`` is not available via the Anaconda repository - go to the Github repository containing the latest release: `https://github.com/BenLangmead/bowtie2 <https://github.com/BenLangmead/bowtie2>`_
 
-1. Download the lastest release ``v2.4.4``.
+# Download the lastest release ``v2.4.4``.
 
-2. Unzip the archive.
+# Unzip the archive.
 
-3. Move to the unzipped directory and figure out if you need to compile the source code.
+# Move to the unzipped directory and figure out if you need to compile the source code.
 
-4. Do you need to change permissions for the executables?
+# Do you need to change permissions for the executables?
 
-5. Move the executables to somewhere in your ``$PATH`` such as ``/usr/bin/``. 
+# Move the executables to somewhere in your ``$PATH``. This can be done two ways: 
 
-6. Test the install by printing the documentation.
+   # By moving the executables to a directory in your ``$PATH`` such as ``/usr/local/bin``, ``/usr/bin`` etc. 
+
+   # By manually adding a directory to your ``$PATH``: ``export PATH="/data/bowtie2-2.4.4-linux-x86_64/:$PATH"``.
+
+# Test the install by printing the documentation.
 
 You will need to perform each of the above tasks in your ``Dockerfile`` - which is done 'blind' hence the need for a dry-run.
 
-.. warning:: 
+.. note:: 
 
     Whilst the ``nf-core`` image we are using contains a handful of tools, containers are usually a clean slate. You have to install basics such as ``unzip``, ``curl`` etc.. 
 
@@ -87,11 +91,12 @@ You will need to perform each of the above tasks in your ``Dockerfile`` - which 
     WORKDIR ./
     COPY environment.yml ./
     RUN conda env create -f environment.yml && conda clean -a
-    ENV PATH /opt/conda/envs/test_env/bin:$PATH
+    ENV PATH=/opt/conda/envs/test_env/bin:$PATH
 
     RUN mkdir -p /usr/src/scratch
     WORKDIR /usr/src/scratch
     RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.4.4/bowtie2-2.4.4-linux-x86_64.zip
     RUN unzip bowtie2-2.4.4-linux-x86_64.zip
-    RUN mv bowtie2-2.4.4-linux-x86_64/bowtie2* /opt/conda/envs/test_env/bin
-    RUN rm -rf /usr/src/scratch
+    ENV PATH=/usr/src/scratch/bowtie2-2.4.4-linux-x86_64/:$PATH
+
+

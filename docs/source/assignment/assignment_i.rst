@@ -1,5 +1,5 @@
-Assignment I
-============
+Assignment II
+=============
 
 Update your ``main.nf`` script to complete the ``kallisto`` RNA-Seq quantification steps. 
 
