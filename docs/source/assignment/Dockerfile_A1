@@ -1,0 +1,37 @@
+FROM nfcore/base:1.14
+LABEL authors="Barry Digby" \
+      description="Docker container containing fastqc"
+
+RUN apt-get update; apt-get clean all; 
+
+RUN apt-get install --yes build-essential \
+                          gcc-multilib \
+                          tar \
+                          unzip \
+                          ncurses-base \
+                          zlib1g \
+                          liblzma5 \
+                          libbz2-1.0 \
+                          gcc \
+                          g++ \
+                          zlib1g-dev \
+                          libidn11
+
+WORKDIR ./
+COPY environment.yml ./
+RUN conda env create -f environment.yml && conda clean -a
+ENV PATH=/opt/conda/envs/Zhao_et_al/bin:$PATH
+
+RUN mkdir -p /usr/src/scratch
+WORKDIR /usr/src/scratch
+RUN wget --no-check-certificate https://github.com/deweylab/RSEM/archive/v1.3.0.tar.gz && \
+    tar -zxvf v1.3.0.tar.gz && cd RSEM-1.3.0 && make && make install
+
+RUN wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.6.0/ncbi-blast-2.6.0+-x64-linux.tar.gz
+RUN tar -xvzf ncbi-blast-2.6.0+-x64-linux.tar.gz
+ENV PATH=/usr/src/scratch/ncbi-blast-2.6.0+/bin/:$PATH
+
+WORKDIR /usr/src/scratch
+RUN wget https://github.com/BarryDigby/CNCI/releases/download/v2.0.0/CNCI_v2.0.0.tar.gz && tar -zxvf CNCI_v2.0.0.tar.gz && \
+    chmod -R 777 CNCI/ && cd CNCI/ && unzip libsvm-3.0.zip && cd libsvm-3.0 && make
+ENV PATH=/usr/src/scratch/CNCI:$PATH
