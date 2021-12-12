@@ -48,14 +48,10 @@ RSEM
 
 When installing ``RSEM`` in the ``Dockerfile``, chain the ``wget``, ``tar -zxvf``, ``cd``, ``make`` and ``make install`` commands using ``&&``. Otherwise it will not install - sorry I have no explanation for this.
 
-.. note::
-
-    When installing code that use ``.h`` and ``.c`` files (i.e ``C++``) feel free to steal this ``Dockerfile`` as a template. 
-
 CNCI
 ####
 
-CNCI is available on Github at the following `link <https://github.com/www-bioinfo-org/CNCI>`_. There are two issue here:
+CNCI is available on Github at the following `link <https://github.com/www-bioinfo-org/CNCI>`_. There are two issues here:
 
 1. The authors never bothered to make a stable release, so you cannot download a versioned tarball containing the contents of the repository.
 
@@ -67,7 +63,7 @@ Within the ``Dockerfile``, use ``wget`` to download the archived repository. You
 
 .. hint::
 
-    Once downloaded and de-compressed, make the ``CNCI`` folder fully accessible: ``chmod -R 777 CNCI/``.
+    Once downloaded and de-compressed, make the ``CNCI`` folder fully accessible: ``chmod -R 777 CNCI/``. You must do this in order to add the executables to your ``$PATH``.
 
 Check Installations
 ###################
