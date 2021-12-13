@@ -115,7 +115,10 @@ Part 3
 
 Update your ``main.nf`` script to include:
 
-#. A process that creates an index file using the transcriptome fasta file.
+Transcriptome indexing
+######################
+
+#. Create a process that creates an index file using the transcriptome fasta file.
 
    #. Name the process ``INDEX``. 
 
@@ -123,15 +126,16 @@ Update your ``main.nf`` script to include:
 
    #. Include a suitable ternary operator after the ``INDEX`` process to accept pre-built index files when supplied to the workflow.
 
-|
+Kallisto quantification
+#######################
 
-#. A process that performs kallisto quantification using the index file and sequencing reads.
+#. Create a process that performs kallisto quantification using the index file and sequencing reads.
 
    #. Name the process ``KALLISTO_QUANT``. 
 
-   #. Use the reads staged in ``ch_alignment_reads`` as input to the process - the ``ch_qc_reads`` channel has already been consumed.  
+   #. Use the reads staged in ``ch_alignment_reads`` as input to the process - the ``ch_qc_reads`` channel has already been consumed.
 
-   #. 
+|
 
 Refer to the `Kallisto documentation <https://pachterlab.github.io/kallisto/manual>`_ and inspect the ``kalisto index`` and ``kallisto quant`` commands. 
 
