@@ -48,7 +48,7 @@ RSEM
 
 When installing ``RSEM`` in the ``Dockerfile``, chain the ``wget``, ``tar -zxvf``, ``cd``, ``make`` and ``make install`` commands using ``&&``. 
 
-Each ``RUN`` line triggers a new layer - breaking up installation commands ove multiple ``RUN`` lines will fail - Thank you Bianca! :)
+Each ``RUN`` line triggers a new layer - breaking up installation commands over multiple ``RUN`` lines will fail - Thank you Bianca! :)
 
 CNCI
 ####
