@@ -34,6 +34,18 @@ To build the image, run the following command:
 
     $ docker build -t USERNAME/test $(pwd)
 
+Check image
+-----------
+
+You can shell into your image to double check that the tools have been installed correctly:
+
+.. code-block:: bash
+
+    $ docker images # check images in cache
+
+    $ docker run -it barryd237/test
+
+
 Push to Dockerhub
 -----------------
 
