@@ -46,7 +46,9 @@ RSEM
                             g++ \
                             zlib1g-dev
 
-When installing ``RSEM`` in the ``Dockerfile``, chain the ``wget``, ``tar -zxvf``, ``cd``, ``make`` and ``make install`` commands using ``&&``. Otherwise it will not install - sorry I have no explanation for this.
+When installing ``RSEM`` in the ``Dockerfile``, chain the ``wget``, ``tar -zxvf``, ``cd``, ``make`` and ``make install`` commands using ``&&``. 
+
+Each ``RUN`` line triggers a new layer - breaking up installation commands ove multiple ``RUN`` lines will fail - Thank you Bianca! :)
 
 CNCI
 ####
