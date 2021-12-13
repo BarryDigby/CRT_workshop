@@ -39,7 +39,7 @@ Push to Dockerhub
 
 Now the image has been created, push to ``Dockerhub``:
 
-.. code_block:: bash
+.. code-block:: bash
 
     $ sudo chmod 666 /var/run/docker.sock
 
