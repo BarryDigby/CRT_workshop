@@ -42,52 +42,6 @@ The ``map{}`` operator performs a mapping function on an input channel. Conceptu
     [1, 2]
     [3, 4]
 
-Create a set of dummy ``fastq`` files in a directory called ``dummy_files``:
-
-.. code-block:: bash
-
-    mkdir dummy_files
-    touch dummy_files/SRR000{1..9}_R{1,2}.fastq.gz
-
-The directory should now contain 9 dummy paired end fastq files:
-
-.. code-block:: bash
-
-    $ l dummy_files
-    total 0
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0001_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0001_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0002_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0002_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0003_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0003_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0004_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0004_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0005_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0005_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0006_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0006_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0007_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0007_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0008_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0008_R2.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0009_R1.fastq.gz
-    -rw-rw-r-- 1 barry 0 Nov 22 09:02 SRR0009_R2.fastq.gz
-
-Create a nextflow script that does the following:
-
-1. Read in the dummy files using ``fromFilePairs()``.
-
-2. Place the reads into 2 channels ``ch_fwd`` and ``ch_rev`` using ``into{a;b}`` instead of ``.set{}``.
-
-3. Splits the reads into two new channels ``forward_reads`` and ``reverse_reads`` using ``map``.
-
-4. Use as inputs to a process the forward and/or reverse read channels and echo them in the script body (Hint: use ``echo true`` at the top of the process).
-
-.. hint::
-
-    Before proceeding to the next step, append the ``.view()`` operator to double check that the channels hold the correct values.
-
 Join
 ----
 
@@ -116,13 +70,6 @@ The ``join()`` operator combines two channels according to a common tuple key. T
     [SRR0002, SRR0002_miRNA.txt]
     [SRR0001, SRR0001_mRNA.txt, SRR0001_miRNA.txt]
     [SRR0002, SRR0002_mRNA.txt, SRR0002_miRNA.txt]
-
-Using the previous ``map{}`` script, we can use ``join()`` in the input directive to join the forward and reverse reads. Note the additional ``file()`` directive:
-
-.. code-block:: groovy
-
-    input:
-    tuple val(base), file(R1), file(R2) from forward_reads.join(reverse_reads)
 
 BaseName
 --------

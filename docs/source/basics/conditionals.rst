@@ -29,11 +29,9 @@ Let's flesh out our ``nextflow.config``:
       fasta = "/data/test/test-datasets/reference/chrI.fa"
       gtf   = "/data/test/test-datasets/reference/chrI.gtf"
       transcriptome = null
-      kallisto_index = null
       outdir = "/data/test/"
       save_qc_intermediates = true
       save_transcriptome = true
-      save_index = true
       run_qc = true
     }
 
@@ -57,11 +55,7 @@ Update your ``.gitignore`` file so you don't upload irrelevant files. As of writ
     .nextflow/
     dummy_files/
     fastqc/
-    multiqc/
-
-Check that the automated build worked on Github. 
-
-You can delete the container locally, going forward we will pull directly from ``Dockerhub`` as specified in the ``nextflow.config``. 
+    multiqc/ 
 
 Update Script
 -------------
@@ -73,7 +67,7 @@ Overwrite the contents of ``main.nf`` with the following, and push to GitHub:
     #!/usr/bin/env nextflow
 
     Channel.fromFilePairs("${params.input}", checkIfExists: true)
-        .into{ ch_qc_reads; ch_alignment_reads }
+           .into{ ch_qc_reads; ch_alignment_reads }
 
     ch_fasta = Channel.value(file(params.fasta))
     ch_gtf = Channel.value(file(params.gtf))
@@ -138,34 +132,27 @@ Overwrite the contents of ``main.nf`` with the following, and push to GitHub:
 
     ch_transcriptome = params.transcriptome ? Channel.value(file(params.transcriptome)) : transcriptome_created
 
-    process INDEX{
-        publishDir params.outdir, mode: 'copy',
-            saveAs: { params.save_index ? "reference/index/${it}" : null }
 
-        when:
-        !params.kallisto_index
+Push to changes to github and run the workflow:
 
-        input:
-        file(tx) from ch_transcriptome
+.. code-block:: bash
+            
+        git add .
 
-        output:
-        file("*.idx") into index_created
-
-        script:
-        """
-        kallisto index -i ${tx.simpleName}.idx $tx
-        """
-    }
-
-    ch_index = params.kallisto_index ? Channel.value(file(params.kallisto_index)) : index_created
-
-
-Just like before, once the changes have been pushed to GitHub, use ``nextflow pull <username>/rtp_workshop`` to stage the changes locally.
+        git commit -m "Update repo"
+        
+        git push
+        
+        nextflow pull <username>/rtp_workshop
+        
+        nextflow run -r dev <username>/rtp_workshop
+        
+        nextflow run main.nf -profile docker -c nextflow.config
 
 .. note::
 
-    For those curious, the workflows are staged under ``~/.nextflow/assets/<GitHub_UserName>/``
+    For those curious, workflows are staged under ``~/.nextflow/assets/<github-username>/``
 
-Run the workflow using ``nextflow run -r dev <username>/rtp_workshop``.
+cool.
 
-nice.
+Go to Assignment II Part 3 :) 

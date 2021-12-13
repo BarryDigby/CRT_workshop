@@ -1,26 +1,48 @@
 First Script
 ============
 
-We will write a basic nextflow script to perform QC on sequencing reads using ``FastQC`` and ``MultiQC``. 
+We will write a basic nextflow script to perform QC on sequencing reads using ``FastQC``.
 
-Before getting started with the nextflow script, take a moment to add ``MultiQC`` to your container:
+Before getting started with the nextflow script, tidy up your ``Dockerfile`` and ``environment.yml`` file to contain only ``fastqc`` (undo assignment 1 work - or save to external directory):
 
-1. Edit the ``environment.yml`` file to include the dependency ``multiqc``. 
+.. code-block:: yaml
 
-2. Push the changes to your GitHub repository ``rtp_workshop``. (the ``dev`` branch)
+    name: test_env
+    channels:
+     - bioconda
+    dependencies:
+     - fastqc
 
-The changes should automatically sync to your Dockerhub profile. Test that the container has ``multiqc`` installed by pulling the image using ``singularity``:
+.. code-block:: dockerfile 
+
+    FROM nfcore/base:1.14
+    LABEL authors="Barry Digby" \
+        description="Docker container containing fastqc"
+
+    WORKDIR ./
+    COPY environment.yml ./
+    RUN conda env create -f environment.yml && conda clean -a
+    ENV PATH=/opt/conda/envs/test_env/bin:$PATH
+
+Your local directory of the repository should look like:
 
 .. code-block:: bash
 
-    $ rm test.img # remove first instance of container
+    barry@YT-1300:/data/github/test$ ls -la
+    total 321416
+    drwxrwxr-x  4 barry barry      4096 Dec 13 14:22 .
+    drwxrwxr-x 21 barry barry      4096 Dec 13 16:50 ..
+    -rw-rw-r--  1 barry barry       245 Dec 13 12:20 Dockerfile
+    -rw-rw-r--  1 barry barry        61 Dec 13 12:20 environment.yml
+    drwxrwxr-x  8 barry barry      4096 Dec 13 15:07 .git
+    drwxrwxr-x  3 barry barry      4096 Dec 13 14:22 .github
+    -rw-rw-r--  1 barry barry         6 Dec 13 14:06 .gitignore
+    -rw-rw-r--  1 barry barry        32 Dec 13 15:07 README.md
+    -rwxrwxr-x  1 barry barry 329093120 Dec 13 13:48 test.img
 
-    $ singularity pull --name test.img docker://barryd237/test:dev
-
-    $ singularity shell -B $(pwd) test.img
-
-    $ multiqc --help
-
+.. warning::
+    
+    We will build on this directory as the day goes on - make sure you have everything in order now. 
 
 Scripting Language
 ------------------
@@ -50,7 +72,7 @@ Nextflow scripts use ``groovy`` as the main scripting language however, the scri
         """
     }
 
-Save the script to a file and run it using ``nextflow run <script_name.nf>``:
+Save the script to a file ``test.nf`` and run it using ``nextflow run test.nf``:
 
 .. code-block:: bash
 
@@ -106,15 +128,15 @@ Notice that the scripting language outside of the process (``println``) is writt
 Channels
 --------
 
-Channels are used to stage files in nextflow. There are two types of channels - ``queue channels`` and ``value channels``. Broadly speaking, queue channels are used to connect processes and cannot be reused. Value channels on the other hand hold a file value - i.e a path to a file, and can be re-used mutliple times. 
+Channels are used to stage files and values in nextflow. There are two types of channels - ``queue channels`` and ``value channels``. Broadly speaking, queue channels are used to connect files to processes and cannot be reused. Value channels on the other hand hold a value (or file value - i.e a path to a file), and can be re-used mutliple times. 
 
 Let's use some simulated RNA-Seq reads:
 
 .. code-block:: bash
 
-    $ git clone -b circrna git@github.com:BarryDigby/test-datasets.git
+    git clone -b circrna git@github.com:BarryDigby/test-datasets.git
 
-    $ ls -la test-datasets/fastq
+    ls -la test-datasets/fastq
     total 151M
     -rw-rw-r-- 1 barry 11M Nov 22 12:16 fust1_rep1_1.fastq.gz
     -rw-rw-r-- 1 barry 12M Nov 22 12:16 fust1_rep1_2.fastq.gz
@@ -143,7 +165,7 @@ Now that we have real data to work with, practice staging the files using the ``
 
     ch_reads.view()
 
-Save the script and run it using ``nextflow run <script_name>.nf``. The output should look like:
+Overwrite the ``test.nf`` script and run it using ``nextflow run test.nf``. The output should look like:
 
 .. code-block:: bash
 
@@ -310,7 +332,7 @@ To run the script, we need to point to the container which holds the ``FastQC`` 
 
 .. code-block:: bash
     
-    $ nextflow run <script_name>.nf -with-singularity 'test.img'
+    nextflow run test.nf -with-singularity 'test.img'
 
 **This should raise an error about 'no such file or directory'. In short, the singularity container does not know where to look for the files when we run the script.**
 
@@ -321,6 +343,8 @@ This brings us along nicely to the ``nextflow.config`` file. This file is used t
 
 In the file below, we specify the ``bind path`` of the container for each process, and enable singularity (we could specify ``podman``, ``docker``, etc here if we needed to). 
 
+In the same directory, save the contents below to a file named ``nextflow.config``:
+
 .. code-block:: groovy
 
     process{
@@ -330,11 +354,11 @@ In the file below, we specify the ``bind path`` of the container for each proces
     singularity.enabled = true
     singularity.autoMounts = true
 
-In the same directory, save this file as ``nextflow.config``. Now run the script again:
+Now run the script again:
 
 .. code-block:: bash
 
-    $ nextflow run <script_name>.nf -with-singularity 'test.img' -c nextflow.config
+    nextflow run test.nf -with-singularity 'test.img' -c nextflow.config
 
 .. tip::
 
@@ -362,14 +386,14 @@ Using the previous script as an example, we will remove the hardcoded variables 
 
     #!/usr/bin/env nextflow 
 
-    Channel.fromFilePairs("${params.input}", checkIfExists: true)
+    Channel.fromFilePairs( params.input, checkIfExists: true )
            .set{ ch_reads }
 
 Pass the path to ``params.input``:
 
 .. code-block:: bash
 
-    $ nextflow run <script_name>.nf --input "test-dataset/fastq/*_{1,2}.fastq.gz" -with-singularity 'test.img' -c nextflow.config
+    $ nextflow run test.nf --input "test-dataset/fastq/*_{1,2}.fastq.gz" -with-singularity 'test.img' -c nextflow.config
 
 Configuration Parameters
 ########################
@@ -395,7 +419,7 @@ This circumvents the need to pass multiple parameters via the command line.
 
 .. code-block:: bash
 
-    $ nextflow run <script_name>.nf -with-singularity 'test.img' -c nextflow.config
+    nextflow run test.nf -with-singularity 'test.img' -c nextflow.config
 
 .. note::
 
@@ -405,16 +429,5 @@ This circumvents the need to pass multiple parameters via the command line.
 
     It is good practice to provide the absolute paths to files.
 
-Exercise
---------
 
-Finish the script by adding a second process called ``MULTIQC``. In addition, add the parameter ``outdir`` to the configuration profile - this is the directory we will output results to. Nextflow uses variable expansion just like bash i.e: ``"${params.outdir}/fastqc"``.
-
-``MultiQC`` expects the output from  ``FastQC`` for **all samples**. As such, use the line ``file(htmls) from ch_multiqc.collect()`` for the input directive to stage every file from the output channel ``ch_multiqc`` from the process ``FASTQC`` in our new process ``MULTIQC``. 
-
-There is no need to specify ``tuple val(base)`` in the output directive either. Why? I have responded to a post explaining this, available here: `https://www.biostars.org/p/495108/#495150 <https://www.biostars.org/p/495108/#495150>`_
-
-.. hint::
-
-    The output of ``multiqc`` is a html file, use the appropriate wildcard glob pattern in the output directive.
-
+Please complete Assignment II Part 1.

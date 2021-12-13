@@ -3,30 +3,41 @@ Github Syncing
 
 One of the coolest things about nextflow is that you can deploy scripts directly from Github - provided the repository is set up correctly.
 
-Working from the same directory where you completed the exercise, rename your nextflow script as ``main.nf`` and tidy up the directory:
+Go to your local clone of your ``rtp_workshop`` repository:
 
-- Delete the scratch ``work/`` directory. 
+#. Rename ``test.nf`` as ``main.nf``.
 
-- Delete the hidden nextflow log files and directory.
+#. Update your ``nextflow.config`` file:
 
-- Delete the output directories from our exercise 
+   .. code-block:: groovy
 
-- In the ``.gitignore`` file, add ``test-datasets/`` - we don't want to upload the raw reads to GitHub.
+    process{
+      container = 'barryd237/test:dev'
+      containerOptions = '-B /data/'
+    }
+
+    params{
+      input = "/data/test/test-dataset/fastq/*_{1,2}.fastq.gz"
+    }
+
+    singularity.enabled = true
+    singularity.autoMounts = true
+    singularity.cacheDir = '/data/containers'
+
+Push the changes to Github:
 
 .. code-block:: bash
 
-    $ git add . 
-
-    $ git commit -m "push main.nf"
-
-    $ git push
+    git add .
+    git commit -m "Prepare repo for deployment"
+    git push
 
 The repository can now be deployed directly from GitHub:
 
 .. code-block:: bash
 
-    $ nextflow pull BarryDigby/rtp_workshop
+    nextflow pull BarryDigby/rtp_workshop
 
-    $ nextflow run -r dev BarryDigby/rtp_workshop -with-singularity 'test.img'
+    nextflow run -r dev BarryDigby/rtp_workshop
 
 Pretty nifty.
