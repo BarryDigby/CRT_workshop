@@ -39,13 +39,19 @@ Push to Dockerhub
 
 Now the image has been created, push to ``Dockerhub``:
 
+First time push requires you to login:
+
+.. code-block:: bash
+
+    $ docker login
+
 .. code-block:: bash
 
     $ sudo chmod 666 /var/run/docker.sock
 
 .. code-block:: bash
 
-    $ docker push USERNAME/test
+    $ (sudo)?? docker push USERNAME/test
 
 
 Advanced use
