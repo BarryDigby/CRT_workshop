@@ -73,14 +73,7 @@ If you need a reminder, the steps to build the container are:
 .. code-block:: bash
 
     docker build -t <dockerhub_username>/<repo_name> $(pwd) # run in directory containing both Dockerfile and environment.yml file
-    docker push <dockerhub_username>/<repo_name>
-
-And to download the container and shell into it:
-
-.. code-block:: bash
-
-    singularity pull <container_name>.img docker://<dockerhub_username>/<repo_name>
-    singularity shell -B $(pwd) <container_name>.img
+    docker run -it <dockerhub_username>/<repo_name>
 
 Check the installs worked: 
 
@@ -102,3 +95,4 @@ Check the installs worked:
 
 All of the tools should work except for ``Deeptools (computeMatrix)``. This looks like a particularly nasty error to debug - particularly when the tool is coming from the Anaconda repository. You will come across situations like this that will force you to look for alternative tools, or comb through their source code and locate and remedy the error.
 
+Once you are happy with the installations, push your changes to Github to trigger an automated build. (i.e push the ``Dockerfile`` & ``environment.yml`` to your repo).
