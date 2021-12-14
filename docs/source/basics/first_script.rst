@@ -137,8 +137,8 @@ Let's use some simulated RNA-Seq reads:
 
 .. code-block:: bash
 
-    git clone -b circrna git@github.com:BarryDigby/test-datasets.git
-
+    wget https://github.com/BarryDigby/circ_data/releases/download/RTP/test-datasets.tar.gz && tar -xvzf test-datasets.tar.gz
+    
     ls -la test-datasets/fastq
     total 151M
     -rw-rw-r-- 1 barry 11M Nov 22 12:16 fust1_rep1_1.fastq.gz
