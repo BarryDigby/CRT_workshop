@@ -3,7 +3,7 @@ First Script
 
 We will write a basic nextflow script to perform QC on sequencing reads using ``FastQC``.
 
-Before getting started with the nextflow script, add the tools needed for todays container:
+Before getting started with the nextflow script, add the tools needed for todays container (overwrite yesterdays assignment/save elsewhere). We will be working from our local clone of the ``rtp_workshop`` repository today.  
 
 .. code-block:: yaml
 
