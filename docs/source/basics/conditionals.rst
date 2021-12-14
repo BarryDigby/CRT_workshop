@@ -82,7 +82,7 @@ Overwrite the contents of ``main.nf`` with the following, and push to GitHub:
         tuple val(base), file(reads) from ch_qc_reads
 
         output:
-        tuple val(base), file("*.{html,zip}") into ch_multiqc
+        file("*.{html,zip}") into ch_multiqc
 
         script:
         """

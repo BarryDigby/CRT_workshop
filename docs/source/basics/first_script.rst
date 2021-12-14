@@ -323,7 +323,7 @@ After staging the sequncing reads, we will create a process called ``FASTQC`` to
         tuple val(base), file(reads) from ch_reads
 
         output:
-        tuple val(base), file("*.{html,zip}") into ch_multiqc
+        file("*.{html,zip}") into ch_multiqc
 
         script:
         """
