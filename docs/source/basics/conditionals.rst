@@ -39,12 +39,10 @@ Let's flesh out our ``nextflow.config``:
     singularity.autoMounts = true
     singularity.cacheDir = "/data/containers"
 
-Update container
-----------------
+Update .gitignore
+-----------------
 
-Add ``kallisto`` & ``gffread`` to your ``environment.yml`` file and push to GitHub.
-
-Update your ``.gitignore`` file so you don't upload irrelevant files. As of writing the documentation, this is what mine looks like:
+Update your ``.gitignore`` file so you don't upload the directories output by our script. As of writing the documentation, this is what mine looks like:
 
 .. code-block:: bash
 

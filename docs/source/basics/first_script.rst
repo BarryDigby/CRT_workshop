@@ -3,7 +3,7 @@ First Script
 
 We will write a basic nextflow script to perform QC on sequencing reads using ``FastQC``.
 
-Before getting started with the nextflow script, tidy up your ``Dockerfile`` and ``environment.yml`` file to contain only ``fastqc`` (undo assignment 1 work - or save to external directory):
+Before getting started with the nextflow script, add the tools needed for todays container:
 
 .. code-block:: yaml
 
@@ -12,6 +12,9 @@ Before getting started with the nextflow script, tidy up your ``Dockerfile`` and
      - bioconda
     dependencies:
      - fastqc
+     - multiqc
+     - gffread
+     - kallisto
 
 .. code-block:: dockerfile 
 
@@ -22,7 +25,7 @@ Before getting started with the nextflow script, tidy up your ``Dockerfile`` and
     WORKDIR ./
     COPY environment.yml ./
     RUN conda env create -f environment.yml && conda clean -a
-    ENV PATH=/opt/conda/envs/test_env/bin:$PATH
+    ENV PATH /opt/conda/envs/test_env/bin:$PATH
 
 Your local directory of the repository should look like:
 
