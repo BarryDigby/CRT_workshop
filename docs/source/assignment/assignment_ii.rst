@@ -3,31 +3,13 @@ Assignment III
 
 Your ``main.nf`` script should be able to perform ``FASTQC`` and ``MULTIQC`` on your sequencing data. 
 
-I have added a process called ``TX`` - which generated a transcriptome FASTA file for ``Kallisto``.
+I have added a process called ``TX`` - which generates a transcriptome FASTA file for ``Kallisto``.
 
 Update your ``main.nf`` script to include:
 
-Transcriptome indexing
-######################
+1. Transcriptome Indexing. 
 
-#. Create a process that creates an index file using the transcriptome fasta file.
-
-   #. Name the process ``INDEX``. 
-
-   #. Include 2 boolean parameters ``kallisto_index`` and ``save_index`` in your ``nextflow.config`` file and script. Use these in a similar fashion to ``transcriptome`` and ``save_transcriptome`` parameters. 
-
-   #. Include a suitable ternary operator after the ``INDEX`` process to accept pre-built index files when supplied to the workflow.
-
-Kallisto quantification
-#######################
-
-#. Create a process that performs kallisto quantification using the index file and sequencing reads.
-
-   #. Name the process ``KALLISTO_QUANT``. 
-
-   #. Use the reads staged in ``ch_alignment_reads`` as input to the process - the ``ch_qc_reads`` channel has already been consumed.
-
-|
+2. Kallisto Quantification.
 
 Refer to the `Kallisto documentation <https://pachterlab.github.io/kallisto/manual>`_ and inspect the ``kalisto index`` and ``kallisto quant`` commands. 
 
@@ -48,3 +30,18 @@ Hopefully the dag gives you clues how to proceed,.,.,.,.??
    :figwidth: 700px
    :target: /_static/images/flowchart.png
    :align: center
+
+Advanced script
+---------------
+
+As it stands, your ``main.nf`` script will run each process every time we run it. We want to make use of conditional statements to allow users to skip processes - saving computational time and resources.
+
+Refer to the ``Condtionals`` documentation - I have included appropriate parameters and code in both our ``nextflow.config`` and ``main.nf`` scripts for quality control and generating the transcriptome file. 
+
+Your task is to: 
+
+* Include 2 boolean parameters ``kallisto_index`` and ``save_index`` in your ``nextflow.config`` file and script. Use these in a similar fashion to the ``transcriptome`` and ``save_transcriptome`` parameters in the documentation.
+
+We do not need any condional statements for the quantification step - we want to run this every time. 
+
+Please ask for help if anything is unclear.
