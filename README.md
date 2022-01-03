@@ -2,8 +2,6 @@
 
 This be the README.md file for setting up the SPHINX deployment.
 
-***
-
 ### Returning after a long break? 
 
 1. To compile the documents in a ``dev`` environment:
