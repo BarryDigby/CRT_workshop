@@ -14,5 +14,6 @@ make clean html
 
 The ``html`` file is located under ``docs/build/html``.
 
+2. To compile as a stable release:
 
-2. To compile as a stable release, push to Github and view the docs on the webpage: `https://readthedocs.org/profiles/BarryDigby/ <https://readthedocs.org/profiles/BarryDigby/>`_.
+Push to Github and view the docs on the webpage: `https://readthedocs.org/profiles/BarryDigby/ <https://readthedocs.org/profiles/BarryDigby/>`_.
