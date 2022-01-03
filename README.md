@@ -2,9 +2,11 @@
 
 This be the README.md file for setting up the SPHINX deployment.
 
-> Returning after a long break? 
+***
 
-To compile the documents in a ``dev`` environment:
+### Returning after a long break? 
+
+1. To compile the documents in a ``dev`` environment:
 
 ```bash
 conda activate read_docs
@@ -14,4 +16,5 @@ make clean html
 
 The ``html`` file is located under ``docs/build/html``.
 
-To compile as a ``stable release`` just push to Github and view the docs on the webpage: `https://readthedocs.org/profiles/BarryDigby/ <https://readthedocs.org/profiles/BarryDigby/>`_.
+
+2. To compile as a stable release, push to Github and view the docs on the webpage: `https://readthedocs.org/profiles/BarryDigby/ <https://readthedocs.org/profiles/BarryDigby/>`_.
