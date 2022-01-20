@@ -26,6 +26,6 @@ Download nextflow binary file
 
     $ chmod 777 ./nextflow
 
-    $ mv ./nextflow /usr/local/bin/
+    $ sudo mv ./nextflow /usr/local/bin/
 
     $ nextflow -v
