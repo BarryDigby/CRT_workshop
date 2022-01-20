@@ -1,6 +1,54 @@
 Assignment I 
 ============
 
+Part I: QC Sequencing Reads
+---------------------------
+
+Download some simulated RNA-Seq reads:
+
+.. code-block:: bash
+
+    wget https://github.com/BarryDigby/circ_data/releases/download/RTP/test-datasets.tar.gz && tar -xvzf test-datasets.tar.gz
+    
+    ls -la test-datasets/fastq
+    total 151M
+    -rw-rw-r-- 1 barry 11M Nov 22 12:16 fust1_rep1_1.fastq.gz
+    -rw-rw-r-- 1 barry 12M Nov 22 12:16 fust1_rep1_2.fastq.gz
+    -rw-rw-r-- 1 barry 14M Nov 22 12:16 fust1_rep2_1.fastq.gz
+    -rw-rw-r-- 1 barry 15M Nov 22 12:16 fust1_rep2_2.fastq.gz
+    -rw-rw-r-- 1 barry 14M Nov 22 12:16 fust1_rep3_1.fastq.gz
+    -rw-rw-r-- 1 barry 16M Nov 22 12:16 fust1_rep3_2.fastq.gz
+    -rw-rw-r-- 1 barry 11M Nov 22 12:16 N2_rep1_1.fastq.gz
+    -rw-rw-r-- 1 barry 12M Nov 22 12:16 N2_rep1_2.fastq.gz
+    -rw-rw-r-- 1 barry 12M Nov 22 12:16 N2_rep2_1.fastq.gz
+    -rw-rw-r-- 1 barry 15M Nov 22 12:16 N2_rep2_2.fastq.gz
+    -rw-rw-r-- 1 barry 11M Nov 22 12:16 N2_rep3_1.fastq.gz
+    -rw-rw-r-- 1 barry 13M Nov 22 12:16 N2_rep3_2.fastq.gz
+
+Your task is to create a container using a both a conda ``environment.yml`` file and a suitable ``Dockerfile`` file hosting the following quality control tools:
+
+- ``fastqc``
+- ``multiqc``
+
+Once the container has been created, shell into the container and run ``fastqc`` on the sequencing reads. Once all of the outputs have been generated for each fastq file ("\*.{html,zip}"), run ``multiqc`` to generate a summary report.
+
+Bonus
+#####
+
+1. Push your Docker container (which should have both ``fastqc`` and ``multiqc`` installed) to the Docker Hub. 
+
+2. Download the container using the ``singularity pull`` command - we are mimicking behaviour on a HPC here where Docker is not available to us.
+
+3. Write a bash script that loops over each fastq file performing ``fastqc``.
+
+4. At the end of the script, run ``multiqc`` on the outputs of the ``fastqc`` runs.
+
+5. Run the script from within the container by using the ``singularity shell`` command. Be careful to specify the correct bind path using ``-B``. 
+
+
+Part II: Advanced Container Creation
+------------------------------------
+
 You are tasked with creating a container to faithfully reproduce the analysis performed by `Zhao et al <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8044108/pdf/41467_2021_Article_22448.pdf>`_ 
 
 An excerpt of the methods are given in the screenshot below - create a container using a ``Dockerfile`` and an ``environment.yml`` file as shown in previous examples.
