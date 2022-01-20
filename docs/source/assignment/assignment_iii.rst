@@ -35,7 +35,7 @@ Once the container has been created, shell into the container and run ``fastqc``
 Bonus
 #####
 
-1. Push your Docker container (which should have both ``fastqc`` and ``multiqc`` installed) to the Docker Hub. 
+1. Push your Docker container (which should have both ``fastqc`` and ``multiqc`` installed) to DockerHub. 
 
 2. Download the container using the ``singularity pull`` command - we are mimicking behaviour on a HPC here where Docker is not available to us.
 
