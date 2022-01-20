@@ -8,7 +8,7 @@ Download some simulated RNA-Seq reads:
 
 .. code-block:: bash
 
-    wget https://github.com/BarryDigby/circ_data/releases/download/RTP/test-datasets.tar.gz && tar -xvzf test-datasets.tar.gz
+    wget https://github.com/BarryDigby/circ_data/releases/download/RTP/fastq.tar.gz && tar -xvzf fastq.tar.gz
     
     ls -la test-datasets/fastq
     total 151M
