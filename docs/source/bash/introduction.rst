@@ -186,7 +186,7 @@ You will need to have a concept of ``basename`` and variable expansion such that
 
     #!/usr/bin/env bash
 
-        # place path to fake fastq files here
+        # place path to fastq files here (substitute your own)
         fastq_dir="/data/MA5112/week1/fastq"
 
         for file in ${fastq_dir}/*fastq.gz; do
