@@ -34,7 +34,7 @@ Below are a set of aliases I use frequently which may save you some time. Copy t
 Inputrc
 -------
 
-A very handy trick is the ability to scroll through your history based on a partial string match to the command run. You will need to create two files: ``~/.inputrc`` and ``/etc/inputrc``.
+A very handy trick is the ability to scroll through your history based on a partial string match to a command previously run. You will need to create two files: ``~/.inputrc`` and ``/etc/inputrc``.
 
 ``~/.inputrc`` : 
 
@@ -120,6 +120,8 @@ A very handy trick is the ability to scroll through your history based on a part
 
 Save the two files. Now add the following line to your ``~/.bashrc`` file: 
 
+.. code-block:: bash
+
     #auto complete
     export INPUTRC=$HOME/.inputrc
 
@@ -182,43 +184,43 @@ You will need to have a concept of ``basename`` and variable expansion such that
 
 .. code-block:: bash
 
-#!/usr/bin/env bash
+    #!/usr/bin/env bash
 
-    # place path to fake fastq files here
-    fastq_dir="/data/MA5112/week1/fastq"
+        # place path to fake fastq files here
+        fastq_dir="/data/MA5112/week1/fastq"
 
-    for file in ${fastq_dir}/*fastq.gz; do
+        for file in ${fastq_dir}/*fastq.gz; do
 
-        # get the sample name (remove extension)
-        # we will need this for naming outputs
-        sample_name=$( basename $file .fastq.gz )
+            # get the sample name (remove extension)
+            # we will need this for naming outputs
+            sample_name=$( basename $file .fastq.gz )
 
-        # print sample name
-        echo "File name without extension: $sample_name"
+            # print sample name
+            echo "File name without extension: $sample_name"
 
-        # we still have _1 and _2 in the name for read 1 and 2 which messes up naming.
-        # remove them before continuing
-        base_name=$(basename $sample_name | cut -d'_' -f1,2)
+            # we still have _1 and _2 in the name for read 1 and 2 which messes up naming.
+            # remove them before continuing
+            base_name=$(basename $sample_name | cut -d'_' -f1,2)
 
-        #print base name with R1 R2 (1 , 2) stripped:
-        echo "File name without Read identifier: $base_name"
+            #print base name with R1 R2 (1 , 2) stripped:
+            echo "File name without Read identifier: $base_name"
 
-        # What if the process needs both R1 and R2? (e.g alignment)
-        R1=${base_name}_1.fastq.gz
-        R2=${base_name}_2.fastq.gz
+            # What if the process needs both R1 and R2? (e.g alignment)
+            R1=${base_name}_1.fastq.gz
+            R2=${base_name}_2.fastq.gz
 
-        # sanity check below to see if R1 and R2 VAR are set properly:
-        echo "Staging sample: $base_name"
-        echo "Beginning to count lines in files..."
-        lines_R1=$(zcat $fastq_dir/$R1 | wc -l)
-        lines_R2=$(zcat $fastq_dir/$R2 | wc -l)
-        echo "Done!"
-        echo "$lines_R1 lines in $R1 and $lines_R2 lines in $R2"
+            # sanity check below to see if R1 and R2 VAR are set properly:
+            echo "Staging sample: $base_name"
+            echo "Beginning to count lines in files..."
+            lines_R1=$(zcat $fastq_dir/$R1 | wc -l)
+            lines_R2=$(zcat $fastq_dir/$R2 | wc -l)
+            echo "Done!"
+            echo "$lines_R1 lines in $R1 and $lines_R2 lines in $R2"
 
-        # make script pause for a sec to see output
-        sleep 5
+            # make script pause for a sec to see output
+            sleep 5
 
-    done
+        done
 
 
 Take your time going through this script. Personally, I would 'comment out' each line inside the for loop (add a ``#`` at the beginning of the line) and then run the script, removing comments as you gain understanding. 
