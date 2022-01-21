@@ -57,6 +57,13 @@ Documentation for CRT nextflow workshop. Please note this is for ``DSL1``.
 
    /test_datasets/continuous_integration
 
+   .. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Bash Scripting
+
+   /bash/introduction
+
 Indices and tables
 ==================
 
