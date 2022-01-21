@@ -224,3 +224,5 @@ You will need to have a concept of ``basename`` and variable expansion such that
 
 
 Take your time going through this script. Personally, I would 'comment out' each line inside the for loop (add a ``#`` at the beginning of the line) and then run the script, removing comments as you gain understanding. 
+
+To run the script, type ``bash <scriptname>.sh`` in your terminal.
