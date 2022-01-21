@@ -188,8 +188,9 @@ You will need to have a concept of ``basename`` and variable expansion such that
 
         # place path to fastq files here (substitute your own)
         fastq_dir="/data/MA5112/week1/fastq"
-
-        for file in ${fastq_dir}/*fastq.gz; do
+        
+        # we are reading R1 and R2 at once here (*{1,2}).
+        for file in ${fastq_dir}/*{1,2}.fastq.gz; do
 
             # get the sample name (remove extension)
             # we will need this for naming outputs
@@ -216,6 +217,8 @@ You will need to have a concept of ``basename`` and variable expansion such that
             lines_R2=$(zcat $fastq_dir/$R2 | wc -l)
             echo "Done!"
             echo "$lines_R1 lines in $R1 and $lines_R2 lines in $R2"
+
+            printf "\n\n"
 
             # make script pause for a sec to see output
             sleep 5
