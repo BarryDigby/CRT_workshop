@@ -1,8 +1,6 @@
 Github
 ======
 
-I trust you can all make a Github account without assistance.. (?) 
-
 During the practical we will be pushing commits from your local machine to Github. Please set up a SSH key linked to your Github account (so that you do not have to enter your username and password on every push):
 
 Generating a new SSH key
@@ -14,7 +12,7 @@ Generating a new SSH key
 
 .. note::
 
-    If it asks you to overwrite an existing key under ``/home/user/.ssh/id_XXXXXXX`` you might have previously set this up. Check your Github account to verfiy this. 
+    If it asks you to overwrite an existing key under ``~/.ssh/id_XXXXXXX`` you might have previously set this up. Check your Github account to verfiy this (Settings > SSH and CPG keys)  
 
 .. important::
 
